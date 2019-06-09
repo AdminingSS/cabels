@@ -104,27 +104,27 @@
         var $animation = $element.find('.tm-catalog-animation');
         var $image = $element.find('.tm-image-wrapper');
 
+        canvas = document.getElementById("canvas_got_izd");
+        anim_container = document.getElementById("animation_container_got_izd");
+        dom_overlay_container = document.getElementById("dom_overlay_container_got_izd");
+
         $element.hover(start, stop);
 
         function stop() {
             $animation.hide();
             $holder.css('padding-top', '175px');
             $image.show();
+            stage.clear();
+            createjs.Ticker.removeEventListener("tick", stage);
         }
 
         function start() {
             $image.hide();
             $holder.css('padding-top', '0');
             $animation.show();
-            init();
-        }
-
-        function init() {
-            canvas = document.getElementById("canvas_got_izd");
-            anim_container = document.getElementById("animation_container_got_izd");
-            dom_overlay_container = document.getElementById("dom_overlay_container_got_izd");
             handleComplete();
         }
+
         function handleComplete() {
             //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
             exportRoot = new lib._6();
@@ -183,12 +183,17 @@
         var $animation = $element.find('.tm-catalog-animation');
         var $image = $element.find('.tm-image-wrapper');
 
+        canvas = document.getElementById("canvas_cab_zak");
+        anim_container = document.getElementById("animation_container_cab_zak");
+        dom_overlay_container = document.getElementById("dom_overlay_container_cab_zak");
+
         $element.hover(start, stop);
 
         function stop() {
             $animation.hide();
             $holder.css('padding-top', '175px');
             $image.show();
+            createjs.Ticker.removeEventListener("tick", stage);
         }
 
         function start() {
@@ -199,9 +204,6 @@
         }
 
         function init() {
-            canvas = document.getElementById("canvas_cab_zak");
-            anim_container = document.getElementById("animation_container_cab_zak");
-            dom_overlay_container = document.getElementById("dom_overlay_container_cab_zak");
             var comp=AdobeAn.getComposition("1FA9798F5A64BB4DB8CA657359A9FEE9");
             var lib=comp.getLibrary();
             var loader = new createjs.LoadQueue(false);
@@ -248,12 +250,17 @@
         var $animation = $element.find('.tm-catalog-animation');
         var $image = $element.find('.tm-image-wrapper');
 
+        canvas = document.getElementById("canvas_str_cor");
+        anim_container = document.getElementById("animation_container_str_cor");
+        dom_overlay_container = document.getElementById("dom_overlay_container_str_cor");
+
         $element.hover(start, stop);
 
         function stop() {
             $animation.hide();
             $holder.css('padding-top', '175px');
             $image.show();
+            createjs.Ticker.removeEventListener("tick", stage);
         }
 
         function start() {
@@ -264,9 +271,6 @@
         }
 
         function init() {
-            canvas = document.getElementById("canvas_str_cor");
-            anim_container = document.getElementById("animation_container_str_cor");
-            dom_overlay_container = document.getElementById("dom_overlay_container_str_cor");
             var comp=AdobeAn.getComposition("F3206178862FAC45BFC60D52D236A28E");
             var lib=comp.getLibrary();
             var loader = new createjs.LoadQueue(false);
@@ -348,12 +352,17 @@
         var $animation = $element.find('.tm-catalog-animation');
         var $image = $element.find('.tm-image-wrapper');
 
+        canvas = document.getElementById("canvas_hel_cab");
+        anim_container = document.getElementById("animation_container_hel_cab");
+        dom_overlay_container = document.getElementById("dom_overlay_container_hel_cab");
+
         $element.hover(start, stop);
 
         function stop() {
             $animation.hide();
             $holder.css('padding-top', '175px');
             $image.show();
+            createjs.Ticker.removeEventListener("tick", stage);
         }
 
         function start() {
@@ -364,9 +373,6 @@
         }
 
         function init() {
-            canvas = document.getElementById("canvas_hel_cab");
-            anim_container = document.getElementById("animation_container_hel_cab");
-            dom_overlay_container = document.getElementById("dom_overlay_container_hel_cab");
             var comp=AdobeAn.getComposition("BEEF98396D2C764EBA07EF1BFCCF942C");
             var lib=comp.getLibrary();
             var loader = new createjs.LoadQueue(false);
@@ -413,12 +419,17 @@
         var $animation = $element.find('.tm-catalog-animation');
         var $image = $element.find('.tm-image-wrapper');
 
+        canvas = document.getElementById("canvas_abt_cmp");
+        anim_container = document.getElementById("animation_container_abt_cmp");
+        dom_overlay_container = document.getElementById("dom_overlay_container_abt_cmp");
+
         $element.hover(start, stop);
 
         function stop() {
             $animation.hide();
             $holder.css('padding-top', '175px');
             $image.show();
+            createjs.Ticker.removeEventListener("tick", stage);
         }
 
         function start() {
@@ -429,9 +440,6 @@
         }
 
         function init() {
-            canvas = document.getElementById("canvas_abt_cmp");
-            anim_container = document.getElementById("animation_container_abt_cmp");
-            dom_overlay_container = document.getElementById("dom_overlay_container_abt_cmp");
             var comp=AdobeAn.getComposition("FDE09619F35CF34B9C2858E15632AD22");
             var lib=comp.getLibrary();
             var loader = new createjs.LoadQueue(false);
