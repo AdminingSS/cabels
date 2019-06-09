@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>title</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="css/adapt.css" rel="stylesheet">
+    <link href="css/fancybox.min.css" rel="stylesheet">
+    <link href="css/magnific-popup.min.css" rel="stylesheet">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery.placeholder.min.js"></script>
+    <script src="js/jquery.maskedinput.js"></script>
+    <script src="js/jquery.toshowhide.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.sticky-kit.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="js/logo_anim.js"></script>
+    <script src="js/createjs-2015.11.26.min.js"></script>
+    <script src="js/6.js?1557911646279"></script>
+    <script src="js/kabel_na_zakaz.js"></script>
+    <script src="js/11.js"></script>
+    <script src="js/Helukabel.js"></script>
+    <script src="js/o_kompanii.js"></script>
+    <script>
+        var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+        function init() {
+            canvas = document.getElementById("canvas");
+            anim_container = document.getElementById("animation_container");
+            dom_overlay_container = document.getElementById("dom_overlay_container");
+            var comp = AdobeAn.getComposition("D74E2ABF2EBB0848A99AB1DEAFD7C850");
+            var lib = comp.getLibrary();
+            var loader = new createjs.LoadQueue(false);
+            loader.addEventListener("fileload", function (evt) {
+                handleFileLoad(evt, comp)
+            });
+            loader.addEventListener("complete", function (evt) {
+                handleComplete(evt, comp)
+            });
+            var lib = comp.getLibrary();
+            loader.loadManifest(lib.properties.manifest);
+        }
+
+        function handleFileLoad(evt, comp) {
+            var images = comp.getImages();
+            if (evt && (evt.item.type == "image")) {
+                images[evt.item.id] = evt.result;
+            }
+        }
+
+        function handleComplete(evt, comp) {
+            //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+            var lib = comp.getLibrary();
+            var ss = comp.getSpriteSheet();
+            var queue = evt.target;
+            var ssMetadata = lib.ssMetadata;
+            for (i = 0; i < ssMetadata.length; i++) {
+                ss[ssMetadata[i].name] = new createjs.SpriteSheet({
+                    "images": [queue.getResult(ssMetadata[i].name)],
+                    "frames": ssMetadata[i].frames
+                })
+            }
+            exportRoot = new lib.logo_anim_2();
+            stage = new lib.Stage(canvas);
+            //Registers the "tick" event listener.
+            fnStartAnimation = function () {
+                stage.addChild(exportRoot);
+                createjs.Ticker.setFPS(lib.properties.fps);
+                createjs.Ticker.addEventListener("tick", stage);
+            }
+
+            //Code to support hidpi screens and responsive scaling.
+            function makeResponsive(isResp, respDim, isScale, scaleType) {
+                var lastW, lastH, lastS = 1;
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+
+                function resizeCanvas() {
+                    var w = lib.properties.width, h = lib.properties.height;
+                    var iw = window.innerWidth, ih = window.innerHeight;
+                    var pRatio = window.devicePixelRatio || 1, xRatio = iw / w, yRatio = ih / h, sRatio = 1;
+                    if (isResp) {
+                        if ((respDim == 'width' && lastW == iw) || (respDim == 'height' && lastH == ih)) {
+                            sRatio = lastS;
+                        }
+                        else if (!isScale) {
+                            if (iw < w || ih < h)
+                                sRatio = Math.min(xRatio, yRatio);
+                        }
+                        else if (scaleType == 1) {
+                            sRatio = Math.min(xRatio, yRatio);
+                        }
+                        else if (scaleType == 2) {
+                            sRatio = Math.max(xRatio, yRatio);
+                        }
+                    }
+                    canvas.width = w * pRatio * sRatio;
+                    canvas.height = h * pRatio * sRatio;
+                    canvas.style.width = dom_overlay_container.style.width = anim_container.style.width = w * sRatio + 'px';
+                    canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h * sRatio + 'px';
+                    stage.scaleX = pRatio * sRatio;
+                    stage.scaleY = pRatio * sRatio;
+                    lastW = iw;
+                    lastH = ih;
+                    lastS = sRatio;
+                    stage.tickOnUpdate = false;
+                    stage.update();
+                    stage.tickOnUpdate = true;
+                }
+            }
+
+            makeResponsive(false, 'both', false, 1);
+            AdobeAn.compositionLoaded(lib.properties.id);
+            fnStartAnimation();
+        }
+    </script>
+</head>
+<body onload="init();">
+
+<header class="site-header">
+    <div class="container">
+        <div class="row">
+
+            <div class="bt-menu"></div>
+
+            <div class="logo">
+                <div id="animation_container" style="width:400px; height:200px">
+                    <canvas id="canvas" width="400" height="200" style="position: absolute; display: block;"></canvas>
+                    <div id="dom_overlay_container"
+                         style="pointer-events:none; overflow:hidden; width:400px; height:200px; position: absolute; left: 0px; top: 0px; display: block;">
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <div class="scroll-wrap">
+                    <div class="close"></div>
+                    <ul>
+                        <li><a href="" class="active">Главная</a></li>
+                        <li><a href="">Готовые изделия</a></li>
+                        <li><a href="">Кабель на заказ</a></li>
+                        <li><a href="">Страховочные шнуры</a></li>
+                        <li><a href="">Helukabel, Lappkabel, PUR</a></li>
+                        <li><a href="">О компании</a></li>
+                    </ul>
+                    <div class="pull-down">
+                        <div class="nav-contacts">
+                            <div class="location">
+                                г. Москва <br/> ул. Шипиловская, дом 17, <br/> корп. 3, офис 209
+                            </div>
+                            <a href="mailto:gkvitoi@gmail.com" class="mail">gkvitoi@gmail.com</a>
+                            <div class="phone">
+                                <span>8 (800) 700-07-60</span> <br/>
+                                <span>8 (495) 543-47-93 </span>
+                            </div>
+                            <a href="" class="btn-2">Заказ обратного звонка</a>
+                        </div>
+                        <div class="share">
+                            <a href=""><img src="i/facebook-logo.png" alt=""></a>
+                            <a href=""><img src="i/twitter-logo-silhouette.png" alt=""></a>
+                            <a href=""><img src="i/vk-social-network-logo.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+</header>
+
+
+<main class="site-body">
+    <div class="">
+
+        <!--<div class="breadcrumbs">-->
+        <!--<ul>-->
+        <!--<li><a href="">Главная </a></li>-->
+        <!--<li>404</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+
+        <div class="tm-warning">
+            <b>Режим работы в праздничные дни:</b> 1, 2, 9 -11 мая – выходные дни, прочие дни – в обычном режиме
+        </div>
+
+        <div class="tm-catalog">
+            <div class="tm-got-izd">
+                <div class="tm-catalog-holder">
+                    <div class="tm-image-wrapper">
+                        <img src="images/img-got-izd.png" alt="">
+                    </div>
+                    <div class="tm-catalog-animation" id="animation_container_got_izd">
+                        <canvas id="canvas_got_izd" width="300" height="555"></canvas>
+                        <div class="dom-overlay" id="dom_overlay_container_got_izd">
+                        </div>
+                    </div>
+                    <div class="tm-catalog-holder-after">
+                        01
+                    </div>
+                </div>
+                <div class="tm-catalog-header">
+                    <span>Готовые изделия</span>
+                </div>
+            </div>
+            <div class="tm-cab-zak">
+                <div class="tm-catalog-holder">
+                    <div class="tm-image-wrapper">
+                        <img src="images/img-cab-zak.png" alt="">
+                    </div>
+                    <div class="tm-catalog-animation" id="animation_container_cab_zak">
+                        <canvas id="canvas_cab_zak" width="300" height="555"></canvas>
+                        <div class="dom-overlay" id="dom_overlay_container_cab_zak">
+                        </div>
+                    </div>
+                    <div class="tm-catalog-holder-after">
+                        02
+                    </div>
+                </div>
+                <div class="tm-catalog-header">
+                    <span>Кабель на заказ</span>
+                </div>
+            </div>
+            <div class="tm_str_cor">
+                <div class="tm-catalog-holder">
+                    <div class="tm-image-wrapper">
+                        <img src="images/img-str-cor.png" alt="">
+                    </div>
+                    <div class="tm-catalog-animation" id="animation_container_str_cor">
+                        <canvas id="canvas_str_cor" width="300" height="555"></canvas>
+                        <div class="dom-overlay" id="dom_overlay_container_str_cor">
+                        </div>
+                    </div>
+                    <div class="tm-catalog-holder-after">
+                        03
+                    </div>
+                </div>
+                <div class="tm-catalog-header">
+                    <span>Страховочные шнуры</span>
+                </div>
+            </div>
+            <div class="tm_hel_cab">
+                <div class="tm-catalog-holder">
+                    <div class="tm-image-wrapper">
+                        <img src="images/img-hlp.png" alt="">
+                    </div>
+                    <div class="tm-catalog-animation" id="animation_container_hel_cab">
+                        <canvas id="canvas_hel_cab" width="300" height="555"></canvas>
+                        <div class="dom-overlay" id="dom_overlay_container_hel_cab">
+                        </div>
+                    </div>
+                    <div class="tm-catalog-holder-after">
+                        04
+                    </div>
+                </div>
+                <div class="tm-catalog-header">
+                    <span>Helukabel, Lappkabel, PUR</span>
+                </div>
+            </div>
+            <div class="tm_abt_cmp">
+                <div class="tm-catalog-holder">
+                    <div class="tm-image-wrapper">
+                        <img src="images/img-abt-cmp.png" alt="">
+                    </div>
+                    <div class="tm-catalog-animation" id="animation_container_abt_cmp">
+                        <canvas id="canvas_abt_cmp" width="380" height="555"></canvas>
+                        <div class="dom-overlay" id="dom_overlay_container_abt_cmp">
+                        </div>
+                    </div>
+                    <div class="tm-catalog-holder-after">
+                        05
+                    </div>
+                </div>
+                <div class="tm-catalog-header">
+                    <span>О компании</span>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="error-page">-->
+
+        <!--<h1>Ошибка 404 - Страница не найдена</h1>-->
+        <!--<p class="bold">Такой страницы на сайте не обнаружено, воспользуйтесь поиском по сайту</p>-->
+
+        <!--<div class="search">-->
+        <!--<form>-->
+        <!--<input type="text" placeholder="Поиск по сайту">-->
+        <!--<button type="submit" class="btn-1">Найти</button>-->
+        <!--</form>-->
+        <!--</div>-->
+
+        <!--</div>-->
+
+    </div>
+</main>
+
+<div id="fast-buy" class="modal mfp-hide">
+    <div class="title">Форма быстрого заказа товара</div>
+    <form>
+        <div class="form-item">
+            <div class="label">Ваш контактный телефон</div>
+            <input type="text" placeholder="" class="mask-phone">
+        </div>
+        <div class="form-text">Оставьте заявку - наш менеджер свяжется с вами в течение нескольких минут, <br/>чтобы
+            подтвердить заказ на этот товар и согласовать детали доставки
+        </div>
+        <button type="submit" class="btn-1">Отправить заказ</button>
+    </form>
+</div>
+
+</body>
+</html>
