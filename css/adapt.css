@@ -280,3 +280,9 @@
 
 
 }
+
+@media screen and (max-width: 360px) {
+    #canvas {
+        left: -40px;
+    }
+}

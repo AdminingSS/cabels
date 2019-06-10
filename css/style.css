@@ -823,7 +823,7 @@ p {
     margin-bottom: 140px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
 }
 
 .tm-catalog>* {
@@ -831,6 +831,16 @@ p {
     min-width: 300px;
     text-align: center;
     margin-bottom: 50px;
+}
+
+.tm-catalog a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.tm-catalog a:hover {
+    color: #000000;
+    text-decoration: none;
 }
 
 .tm-catalog-holder {
@@ -866,7 +876,14 @@ p {
     font-size: 25px;
 }
 
+/*.tm-logo-animation, .tm-logo-animation canvas {*/
+    /*max-width: 100%!important;*/
+    /*width: 300px!important;*/
+    /*height: 150px!important;*/
+/*}*/
+
 .tm-catalog-animation {
+    position: relative;
     display: none;
     max-width: 100%!important;
     width: 100%;
@@ -889,3 +906,45 @@ p {
     top: 0;
     display: block;
 }
+
+.tm-animation-link {
+    position: absolute;
+    width: 25%;
+    height: 22%;
+    border-radius: 3px;
+}
+
+.tm-animation-link:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.tm-animation-link-doc {
+    top: 10%;
+    left: 20%;
+}
+
+.tm-animation-link-cont {
+    top: 10%;
+    left: 57%;
+}
+
+.tm-animation-link-blog {
+    top: 40%;
+    left: 20%;
+}
+
+.tm-animation-link-photo {
+    top: 40%;
+    left: 57%;
+}
+
+.tm-animation-link-about {
+    top: 69%;
+    left: 20%;
+}
+
+.tm-animation-link-part {
+    top: 69%;
+    left: 57%;
+}
+
